@@ -52,12 +52,12 @@ public class MovieService {
 
         Map<Integer, UserMovie> userMoviesByMovieId = userMovieRepository.findByUser_Id(userId)
                 .stream()
-                .collect(Collectors.toMap(um -> um.getMovie().getId(), Function.identity(), (a, b) -> a));
+                .collect(Collectors.toMap(usermovie -> usermovie.getMovie().getId(), Function.identity(), (a, b) -> a));
 
         return movies.stream()
                 .map(dto -> {
-                    UserMovie um = userMoviesByMovieId.get(dto.id());
-                    return dtoWithUser(dto, userId, um);
+                    UserMovie usermovie = userMoviesByMovieId.get(dto.id());
+                    return dtoWithUser(dto, userId, usermovie);
                 })
                 .toList();
     }
@@ -95,11 +95,11 @@ public class MovieService {
 
         UserMovie userMovie = userMovieRepository.findByUser_IdAndMovie_Id(user.getId(), movie.getId())
                 .orElseGet(() -> {
-                    UserMovie um = new UserMovie();
-                    um.setUser(user);
-                    um.setMovie(movie);
-                    um.setCreatedAt(java.time.Instant.now());
-                    return um;
+                    UserMovie usermovie = new UserMovie();
+                    usermovie.setUser(user);
+                    usermovie.setMovie(movie);
+                    usermovie.setCreatedAt(java.time.Instant.now());
+                    return usermovie;
                 });
 
         if (dto.status() != null) userMovie.setStatus(dto.status());
