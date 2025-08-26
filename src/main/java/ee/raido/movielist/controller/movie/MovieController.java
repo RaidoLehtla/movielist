@@ -32,7 +32,7 @@ public class MovieController {
 
     @GetMapping("/{id}")
     @Operation(summary = "Get movie")
-    @ApiResponses({
+    @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK"),
             @ApiResponse(responseCode = "404", description = "Not found",
                     content = @Content(schema = @Schema(implementation = ApiError.class)))
@@ -44,7 +44,7 @@ public class MovieController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     @Operation(summary = "Create movie")
-    @ApiResponses({
+    @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Created"),
             @ApiResponse(responseCode = "400", description = "Bad request",
                     content = @Content(schema = @Schema(implementation = ApiError.class)))
@@ -55,7 +55,7 @@ public class MovieController {
 
     @PutMapping("/{id}")
     @Operation(summary = "Update movie")
-    @ApiResponses({
+    @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK"),
             @ApiResponse(responseCode = "400", description = "Bad request",
                     content = @Content(schema = @Schema(implementation = ApiError.class))),
@@ -68,7 +68,7 @@ public class MovieController {
 
     @DeleteMapping("/{id}")
     @Operation(summary = "Delete movie")
-    @ApiResponses({
+    @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK"),
             @ApiResponse(responseCode = "404", description = "Not found",
                     content = @Content(schema = @Schema(implementation = ApiError.class)))
