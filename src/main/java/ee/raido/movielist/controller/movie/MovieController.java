@@ -21,7 +21,10 @@ import java.util.List;
 public class MovieController {
 
     private final MovieService movieService;
-    public MovieController(MovieService movieService) { this.movieService = movieService; }
+
+    public MovieController(MovieService movieService) {
+        this.movieService = movieService;
+    }
 
     @GetMapping
     @Operation(summary = "List movies")
@@ -32,11 +35,7 @@ public class MovieController {
 
     @GetMapping("/{id}")
     @Operation(summary = "Get movie")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "OK"),
-            @ApiResponse(responseCode = "404", description = "Not found",
-                    content = @Content(schema = @Schema(implementation = ApiError.class)))
-    })
+    @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "OK"), @ApiResponse(responseCode = "404", description = "Not found", content = @Content(schema = @Schema(implementation = ApiError.class)))})
     public MovieDto findById(@PathVariable Integer id, @RequestParam(required = false) Integer userId) {
         return movieService.getById(id, userId);
     }
@@ -44,35 +43,21 @@ public class MovieController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     @Operation(summary = "Create movie")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "Created"),
-            @ApiResponse(responseCode = "400", description = "Bad request",
-                    content = @Content(schema = @Schema(implementation = ApiError.class)))
-    })
+    @ApiResponses(value = {@ApiResponse(responseCode = "201", description = "Created"), @ApiResponse(responseCode = "400", description = "Bad request", content = @Content(schema = @Schema(implementation = ApiError.class)))})
     public MovieDto create(@RequestBody @Valid MovieDto dto) {
         return movieService.create(dto);
     }
 
     @PutMapping("/{id}")
     @Operation(summary = "Update movie")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "OK"),
-            @ApiResponse(responseCode = "400", description = "Bad request",
-                    content = @Content(schema = @Schema(implementation = ApiError.class))),
-            @ApiResponse(responseCode = "404", description = "Not found",
-                    content = @Content(schema = @Schema(implementation = ApiError.class)))
-    })
+    @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "OK"), @ApiResponse(responseCode = "400", description = "Bad request", content = @Content(schema = @Schema(implementation = ApiError.class))), @ApiResponse(responseCode = "404", description = "Not found", content = @Content(schema = @Schema(implementation = ApiError.class)))})
     public MovieDto update(@PathVariable Integer id, @RequestBody @Valid MovieDto dto) {
         return movieService.update(id, dto);
     }
 
     @DeleteMapping("/{id}")
     @Operation(summary = "Delete movie")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "OK"),
-            @ApiResponse(responseCode = "404", description = "Not found",
-                    content = @Content(schema = @Schema(implementation = ApiError.class)))
-    })
+    @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "OK"), @ApiResponse(responseCode = "404", description = "Not found", content = @Content(schema = @Schema(implementation = ApiError.class)))})
     public void delete(@PathVariable Integer id) {
         movieService.delete(id);
     }
