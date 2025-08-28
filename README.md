@@ -124,67 +124,67 @@ Spring Boot auto-runs:
 
 movielist/
 ├── src/
-│   ├── main/
-│   │   ├── java/
-│   │   │   └── ee/raido/movielist/
-│   │   │       ├── controller/                 # REST layer: endpoints & DTOs
-│   │   │       │   ├── movie/
-│   │   │       │   │   ├── MovieController.java   # REST endpoints for movies (CRUD + user state)
-│   │   │       │   │   └── dto/
-│   │   │       │   │       └── MovieDto.java      # API-facing DTO for movies (with optional user state)
-│   │   │       │   └── usermovie/
-│   │   │       │       └── UserMovieDto.java      # API-facing DTO for user–movie relation (status, rating, comment)
-│   │   │       │
-│   │   │       ├── infrastructure/             # Infrastructure & configuration
-│   │   │       │   ├── db/
-│   │   │       │   │   └── HsqlServerConfig.java  # Starts embedded HSQLDB server (TCP:9001) for development
-│   │   │       │   └── rest/
-│   │   │       │       ├── error/
-│   │   │       │       │   ├── ApiError.java      # Standardized error response for REST
-│   │   │       │       │   └── Error.java         # Error details (field, message, etc.)
-│   │   │       │       ├── exception/
-│   │   │       │       │   ├── DataNotFoundException.java # Thrown when entity not found
-│   │   │       │       │   └── ForbiddenException.java    # Thrown when access is denied
-│   │   │       │       └── RestExceptionHandler.java      # Global exception → ApiError mapper
-│   │   │       │
-│   │   │       ├── persistence/                # Persistence layer: entities, repos, mappers
-│   │   │       │   ├── movie/
-│   │   │       │   │   ├── Movie.java              # JPA entity for MOVIE table
-│   │   │       │   │   ├── MovieRepository.java    # Spring Data JPA repository
-│   │   │       │   │   └── MovieMapper.java        # MapStruct mapper (Movie ↔ MovieDto)
-│   │   │       │   ├── useraccount/
-│   │   │       │   │   ├── UserAccount.java        # JPA entity for USER_ACCOUNT table
-│   │   │       │   │   └── UserAccountRepository.java # Repository for user accounts
-│   │   │       │   └── usermovie/
-│   │   │       │       ├── UserMovie.java          # JPA entity for USER_MOVIE relation
-│   │   │       │       └── UserMovieRepository.java # Repository for user–movie links
-│   │   │       │
-│   │   │       ├── service/                     # Business logic layer
-│   │   │       │   └── movie/
-│   │   │       │       └── MovieService.java      # Handles CRUD + user state logic (watched, rating, comment)
-│   │   │       │
-│   │   │       └── MovielistApplication.java   # Main Spring Boot entrypoint
-│   │   │
-│   │   └── resources/
-│   │       ├── application.properties          # Spring Boot runtime configuration
-│   │       ├── schema.sql                      # DDL script: creates tables & constraints
-│   │       ├── data.sql                        # Seed data: users, movies, ratings
-│   │       ├── static/                         # Static web resources (if needed)
-│   │       └── templates/                      # Thymeleaf templates (if needed)
-│   │
-│   └── test/
-│       └── java/
-│           └── ee/raido/movielist/
-│               └── MovielistApplicationTests.java # Basic Spring Boot integration test
+│ ├── main/
+│ │ ├── java/
+│ │ │ └── ee/raido/movielist/
+│ │ │ ├── controller/ # REST layer: endpoints & DTOs
+│ │ │ │ ├── movie/
+│ │ │ │ │ ├── MovieController.java # REST endpoints for movies (CRUD + user state)
+│ │ │ │ │ └── dto/
+│ │ │ │ │ └── MovieDto.java # API-facing DTO for movies (with optional user state)
+│ │ │ │ └── usermovie/
+│ │ │ │ └── UserMovieDto.java # API-facing DTO for user–movie relation (status, rating, comment)
+│ │ │ │
+│ │ │ ├── infrastructure/ # Infrastructure & configuration
+│ │ │ │ ├── db/
+│ │ │ │ │ └── HsqlServerConfig.java # Starts embedded HSQLDB server (TCP:9001) for development
+│ │ │ │ └── rest/
+│ │ │ │ ├── error/
+│ │ │ │ │ ├── ApiError.java # Standardized error response for REST
+│ │ │ │ │ └── Error.java # Error details (field, message, etc.)
+│ │ │ │ ├── exception/
+│ │ │ │ │ ├── DataNotFoundException.java # Thrown when entity not found
+│ │ │ │ │ └── ForbiddenException.java # Thrown when access is denied
+│ │ │ │ └── RestExceptionHandler.java # Global exception → ApiError mapper
+│ │ │ │
+│ │ │ ├── persistence/ # Persistence layer: entities, repos, mappers
+│ │ │ │ ├── movie/
+│ │ │ │ │ ├── Movie.java # JPA entity for MOVIE table
+│ │ │ │ │ ├── MovieRepository.java # Spring Data JPA repository
+│ │ │ │ │ └── MovieMapper.java # MapStruct mapper (Movie ↔ MovieDto)
+│ │ │ │ ├── useraccount/
+│ │ │ │ │ ├── UserAccount.java # JPA entity for USER_ACCOUNT table
+│ │ │ │ │ └── UserAccountRepository.java # Repository for user accounts
+│ │ │ │ └── usermovie/
+│ │ │ │ ├── UserMovie.java # JPA entity for USER_MOVIE relation
+│ │ │ │ └── UserMovieRepository.java # Repository for user–movie links
+│ │ │ │
+│ │ │ ├── service/ # Business logic layer
+│ │ │ │ └── movie/
+│ │ │ │ └── MovieService.java # Handles CRUD + user state logic (watched, rating, comment)
+│ │ │ │
+│ │ │ └── MovielistApplication.java # Main Spring Boot entrypoint
+│ │ │
+│ │ └── resources/
+│ │ ├── application.properties # Spring Boot runtime configuration
+│ │ ├── schema.sql # DDL script: creates tables & constraints
+│ │ ├── data.sql # Seed data: users, movies, ratings
+│ │ ├── static/ # Static web resources (if needed)
+│ │ └── templates/ # Thymeleaf templates (if needed)
+│ │
+│ └── test/
+│ └── java/
+│ └── ee/raido/movielist/
+│ └── MovielistApplicationTests.java # Basic Spring Boot integration test
 │
 ├── docs/
-│   └── ERD.png                                 # Database schema diagram
+│ └── ERD.png # Database schema diagram
 │
-├── build.gradle                                # Gradle build script
-├── settings.gradle                             # Gradle settings
-├── gradlew / gradlew.bat                       # Gradle wrapper scripts
-├── .gitignore                                  # Files ignored by Git
-└── README.md                                   # Project documentation
+├── build.gradle # Gradle build script
+├── settings.gradle # Gradle settings
+├── gradlew / gradlew.bat # Gradle wrapper scripts
+├── .gitignore # Files ignored by Git
+└── README.md # Project documentation
 
 ---
 
