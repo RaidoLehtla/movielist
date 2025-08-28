@@ -128,65 +128,64 @@ movielist/
 │   ├── main/
 │   │   ├── java/
 │   │   │   └── ee/raido/movielist/
-│   │   │       ├── controller/                 # REST layer: endpoints & DTOs
+│   │   │       ├── controller/               # REST controllers & DTOs
 │   │   │       │   ├── movie/
-│   │   │       │   │   ├── MovieController.java    # REST endpoints for movies (CRUD + user state)
+│   │   │       │   │   ├── MovieController.java    # Movie endpoints
 │   │   │       │   │   └── dto/
-│   │   │       │   │       └── MovieDto.java       # API-facing DTO for movies (with optional user state)
+│   │   │       │   │       └── MovieDto.java       # Movie DTO
 │   │   │       │   └── usermovie/
-│   │   │       │       └── UserMovieDto.java       # API-facing DTO for user–movie relation (status, rating, comment)
+│   │   │       │       └── UserMovieDto.java       # User–Movie DTO
 │   │   │       │
-│   │   │       ├── infrastructure/              # Infrastructure & configuration
+│   │   │       ├── infrastructure/          # Infra & config
 │   │   │       │   ├── db/
-│   │   │       │   │   └── HsqlServerConfig.java   # Starts embedded HSQLDB server (TCP:9001) for development
+│   │   │       │   │   └── HsqlServerConfig.java   # HSQLDB config
 │   │   │       │   └── rest/
 │   │   │       │       ├── error/
-│   │   │       │       │   ├── ApiError.java       # Standardized error response for REST
-│   │   │       │       │   └── Error.java          # Error details (field, message, etc.)
+│   │   │       │       │   ├── ApiError.java       # Error payload
+│   │   │       │       │   └── Error.java          # Error details
 │   │   │       │       ├── exception/
-│   │   │       │       │   ├── DataNotFoundException.java # Thrown when entity not found
-│   │   │       │       │   └── ForbiddenException.java    # Thrown when access is denied
-│   │   │       │       └── RestExceptionHandler.java      # Global exception → ApiError mapper
+│   │   │       │       │   ├── DataNotFoundException.java
+│   │   │       │       │   └── ForbiddenException.java
+│   │   │       │       └── RestExceptionHandler.java
 │   │   │       │
-│   │   │       ├── persistence/                 # Persistence layer: entities, repos, mappers
+│   │   │       ├── persistence/             # Entities & repos
 │   │   │       │   ├── movie/
-│   │   │       │   │   ├── Movie.java               # JPA entity for MOVIE table
-│   │   │       │   │   ├── MovieRepository.java     # Spring Data JPA repository
-│   │   │       │   │   └── MovieMapper.java         # MapStruct mapper (Movie ↔ MovieDto)
+│   │   │       │   │   ├── Movie.java              # Movie entity
+│   │   │       │   │   ├── MovieRepository.java    # Movie repo
+│   │   │       │   │   └── MovieMapper.java        # Movie mapper
 │   │   │       │   ├── useraccount/
-│   │   │       │   │   ├── UserAccount.java         # JPA entity for USER_ACCOUNT table
-│   │   │       │   │   └── UserAccountRepository.java # Repository for user accounts
+│   │   │       │   │   ├── UserAccount.java        # User entity
+│   │   │       │   │   └── UserAccountRepository.java
 │   │   │       │   └── usermovie/
-│   │   │       │       ├── UserMovie.java           # JPA entity for USER_MOVIE relation
-│   │   │       │       └── UserMovieRepository.java # Repository for user–movie links
+│   │   │       │       ├── UserMovie.java          # UserMovie entity
+│   │   │       │       └── UserMovieRepository.java
 │   │   │       │
-│   │   │       ├── service/                      # Business logic layer
+│   │   │       ├── service/                # Services
 │   │   │       │   └── movie/
-│   │   │       │       └── MovieService.java       # Handles CRUD + user state logic (watched, rating, comment)
+│   │   │       │       └── MovieService.java       # Movie service
 │   │   │       │
-│   │   │       └── MovielistApplication.java    # Main Spring Boot entrypoint
+│   │   │       └── MovielistApplication.java       # Main app
 │   │   │
 │   │   └── resources/
-│   │       ├── application.properties           # Spring Boot runtime configuration
-│   │       ├── schema.sql                       # DDL script: creates tables & constraints
-│   │       ├── data.sql                         # Seed data: users, movies, ratings
-│   │       ├── static/                          # Static web resources (if needed)
-│   │       └── templates/                       # Thymeleaf templates (if needed)
+│   │       ├── application.properties      # Config
+│   │       ├── schema.sql                  # DB schema
+│   │       ├── data.sql                    # Seed data
+│   │       ├── static/                     # Static files
+│   │       └── templates/                  # Templates
 │   │
 │   └── test/
 │       └── java/
 │           └── ee/raido/movielist/
-│               └── MovielistApplicationTests.java # Basic Spring Boot integration test
+│               └── MovielistApplicationTests.java
 │
 ├── docs/
-│   └── ERD.png                                  # Database schema diagram
+│   └── ERD.png                             # DB diagram
 │
-├── build.gradle                                 # Gradle build script
-├── settings.gradle                              # Gradle settings
-├── gradlew / gradlew.bat                        # Gradle wrapper scripts
-├── .gitignore                                   # Files ignored by Git
-└── README.md                                    # Project documentation
-
+├── build.gradle
+├── settings.gradle
+├── gradlew / gradlew.bat
+├── .gitignore
+└── README.md
 
 ---
 
