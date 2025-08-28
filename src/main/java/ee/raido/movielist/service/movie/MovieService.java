@@ -20,45 +20,31 @@ public class MovieService {
     private final MovieMapper movieMapper;
     private final UserMovieRepository userMovieRepository;
 
-    public MovieService(MovieRepository movieRepository,
-                        MovieMapper movieMapper,
-                        UserMovieRepository userMovieRepository) {
+    public MovieService(MovieRepository movieRepository, MovieMapper movieMapper, UserMovieRepository userMovieRepository) {
         this.movieRepository = movieRepository;
         this.movieMapper = movieMapper;
         this.userMovieRepository = userMovieRepository;
     }
 
     public MovieDto getById(Integer movieId, Integer userId) {
-        Movie movie = movieRepository.findById(movieId)
-                .orElseThrow(() -> new IllegalArgumentException("Movie " + movieId + " not found"));
+        Movie movie = movieRepository.findById(movieId).orElseThrow(() -> new IllegalArgumentException("Movie " + movieId + " not found"));
         MovieDto baseDto = movieMapper.toDto(movie);
         return attachUserState(baseDto, userId);
     }
 
     public List<MovieDto> getAll(Integer userId) {
-        List<MovieDto> movies = movieRepository.findAll()
-                .stream()
-                .map(movieMapper::toDto)
-                .toList();
+        List<MovieDto> movies = movieRepository.findAll().stream().map(movieMapper::toDto).toList();
 
         if (userId == null) {
             return movies;
         }
 
-        Map<Integer, UserMovie> userMoviesByMovieId = userMovieRepository.findByUser_Id(userId)
-                .stream()
-                .collect(Collectors.toMap(
-                        link -> link.getMovie().getId(),
-                        Function.identity(),
-                        (a, b) -> a
-                ));
+        Map<Integer, UserMovie> userMoviesByMovieId = userMovieRepository.findByUser_Id(userId).stream().collect(Collectors.toMap(link -> link.getMovie().getId(), Function.identity(), (a, b) -> a));
 
-        return movies.stream()
-                .map(dto -> {
-                    UserMovie link = userMoviesByMovieId.get(dto.id());
-                    return dtoWithUser(dto, userId, link);
-                })
-                .toList();
+        return movies.stream().map(dto -> {
+            UserMovie link = userMoviesByMovieId.get(dto.id());
+            return dtoWithUser(dto, userId, link);
+        }).toList();
     }
 
     public MovieDto create(MovieDto dto) {
@@ -68,8 +54,7 @@ public class MovieService {
     }
 
     public MovieDto update(Integer id, MovieDto dto) {
-        Movie movie = movieRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Movie " + id + " not found"));
+        Movie movie = movieRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Movie " + id + " not found"));
         movieMapper.updateEntityFromDto(dto, movie);
         Movie updated = movieRepository.save(movie);
         return movieMapper.toDto(updated);
@@ -89,17 +74,6 @@ public class MovieService {
     }
 
     private MovieDto dtoWithUser(MovieDto baseDto, Integer userId, UserMovie userMovie) {
-        return new MovieDto(
-                baseDto.id(),
-                baseDto.title(),
-                baseDto.releaseYear(),
-                baseDto.runtimeMinutes(),
-                baseDto.createdAt(),
-                userId,
-                userMovie != null ? userMovie.getStatus() : null,
-                userMovie != null ? userMovie.getRating() : null,
-                userMovie != null ? userMovie.getComment() : null,
-                userMovie != null ? userMovie.getWatchedAt() : null
-        );
+        return new MovieDto(baseDto.id(), baseDto.title(), baseDto.releaseYear(), baseDto.runtimeMinutes(), baseDto.createdAt(), userId, userMovie != null ? userMovie.getStatus() : null, userMovie != null ? userMovie.getRating() : null, userMovie != null ? userMovie.getComment() : null, userMovie != null ? userMovie.getWatchedAt() : null);
     }
 }
